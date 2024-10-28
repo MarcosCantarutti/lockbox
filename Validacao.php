@@ -37,7 +37,7 @@ class Validacao
     private function required($campo, $valor)
     {
         if (strlen($valor) == 0) {
-            $this->validacoes[] = "O $campo é obrigatório.";
+            $this->addError($campo, "O $campo é obrigatório.");
         }
     }
 
@@ -45,28 +45,28 @@ class Validacao
     private function email($campo, $valor)
     {
         if (!filter_var($valor, FILTER_VALIDATE_EMAIL)) {
-            $this->validacoes[] = "O $campo é INVÁLIDO.";
+            $this->addError($campo, "O $campo é INVÁLIDO.");
         }
     }
 
     private function confirmed($campo, $valor, $valor_confirmacao)
     {
         if ($valor != $valor_confirmacao) {
-            $this->validacoes[] = "O $campo de confirmação esta diferente";
+            $this->addError($campo, "O $campo de confirmação esta diferente");
         }
     }
 
     private function min($min, $campo, $valor)
     {
         if (strlen($valor) < $min) {
-            $this->validacoes[] = "O campo $campo precisa ter no mínimo $min caracteres.";
+            $this->addError($campo, "O campo $campo precisa ter no mínimo $min caracteres.");
         }
     }
 
     private function max($max, $campo, $valor)
     {
         if (strlen($valor) > $max) {
-            $this->validacoes[] = "O campo $campo pode ter no máximo $max caracteres.";
+            $this->addError($campo, "O campo $campo pode ter no máximo $max caracteres.");
         }
     }
 
@@ -74,7 +74,7 @@ class Validacao
     {
         // Verifica se a senha contém letras maiúsculas, minúsculas, números e caracteres especiais
         if (!preg_match('/[A-Z]/', $valor) || !preg_match('/[a-z]/', $valor) || !preg_match('/[0-9]/', $valor) || !preg_match('/[!@#$%¨&*()_]/', $valor)) {
-            $this->validacoes[] = "O campo $campo precisa ter pelo menos uma letra maiúscula, uma minúscula, um número e um caractere especial.";
+            $this->addError($campo, "O campo $campo precisa ter pelo menos uma letra maiúscula, uma minúscula, um número e um caractere especial.");
         }
     }
 
@@ -94,7 +94,7 @@ class Validacao
         // dd($resultado);
 
         if ($resultado) {
-            $this->validacoes[] = "O campo $campo já esta sendo usado.";
+            $this->addError($campo, "O campo $campo já esta sendo usado.");
         }
     }
 
@@ -110,5 +110,10 @@ class Validacao
         flash()->push($validacao, $this->validacoes);
         // $_SESSION['validacoes'] = $this->validacoes;
         return is_array($this->validacoes) && count($this->validacoes) > 0;
+    }
+
+    public function addError($campo, $erro)
+    {
+        $this->validacoes[$campo][] = $erro;
     }
 }
