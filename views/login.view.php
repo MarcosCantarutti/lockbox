@@ -17,7 +17,9 @@
     <div class="hero mr-40 bg-white min-h-screen text-black">
         <div class="hero-content -mt-20">
             <form action="/login" method="post">
-                <?php $validacoes = flash()->get('validacoes'); ?>
+                <?php
+                $validacoes = flash()->get('validacoes');
+                ?>
                 <div class="card">
                     <div class="card-body">
                         <div class="card-title">Faça o seu login</div>
@@ -25,7 +27,7 @@
                             <div class="label">
                                 <span class="label-text text-black">Email</span>
                             </div>
-                            <input type="email" placeholder="email" class="input input-bordered w-full max-w-xs bg-white" name="email" />
+                            <input type="email" placeholder="email" class="input input-bordered w-full max-w-xs bg-white" name="email" value="<?= old('email'); ?>" />
                         </label>
                         <?php if (isset($validacoes['email'])): ?>
                             <div class="label text-xs text-error"><?= $validacoes['email'][0]; ?></div>
