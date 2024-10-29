@@ -1,6 +1,10 @@
 <?php
 
-class DB
+namespace Core;
+
+use PDO;
+
+class Database
 {
 
     private $db;
@@ -37,5 +41,3 @@ class DB
         return $prepare;
     }
 }
-
-$database = new DB($config['database']);

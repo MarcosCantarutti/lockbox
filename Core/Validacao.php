@@ -1,5 +1,7 @@
 <?php
 
+namespace Core;
+
 class Validacao
 {
 
@@ -84,7 +86,7 @@ class Validacao
             return;
         }
 
-        $db = new DB(config('database'));
+        $db = new Database(config('database'));
 
         $resultado = $db->query(
             query: "select * from $tabela where $campo = :valor",

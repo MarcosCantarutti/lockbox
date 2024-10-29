@@ -1,7 +1,10 @@
 <?php
 
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
+use Core\Database;
+use Core\Validacao;
 
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    $database = new Database(config('database'));
 
     $validacao = Validacao::validar([
         'name' => ['required'],
@@ -10,8 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     ], $_POST);
 
 
-    if ($validacao->naoPassou('registrar')) {
-        header('location: /login');
+    if ($validacao->naoPassou()) {
+        view('registrar');
         exit();
     }
 

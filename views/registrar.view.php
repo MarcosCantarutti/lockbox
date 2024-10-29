@@ -19,30 +19,45 @@
             <form action="/registrar" method="post">
                 <div class="card">
                     <div class="card-body">
+                        <?php
+                        $validacoes = flash()->get('validacoes');
+                        ?>
                         <div class="card-title">Crie sua conta</div>
                         <label class="form-control">
                             <div class="label">
                                 <span class="label-text text-black">Nome</span>
                             </div>
                             <input type="text" placeholder="Nome" class="input input-bordered w-full max-w-xs bg-white" name="name" />
+                            <?php if (isset($validacoes['name'])): ?>
+                                <div class="label text-xs text-error"><?= $validacoes['name'][0]; ?></div>
+                            <?php endif; ?>
                         </label>
                         <label class="form-control">
                             <div class="label">
                                 <span class="label-text text-black">Email</span>
                             </div>
                             <input type="email" placeholder="email" class="input input-bordered w-full max-w-xs bg-white" name="email" />
+                            <?php if (isset($validacoes['email'])): ?>
+                                <div class="label text-xs text-error"><?= $validacoes['email'][0]; ?></div>
+                            <?php endif; ?>
                         </label>
                         <label class="form-control">
                             <div class="label">
                                 <span class="label-text text-black">Confirme seu email</span>
                             </div>
                             <input type="email" placeholder="email" class="input input-bordered w-full max-w-xs bg-white" name="email_confirm" />
+                            <?php if (isset($validacoes['email'])): ?>
+                                <div class="label text-xs text-error"><?= $validacoes['email'][1]; ?></div>
+                            <?php endif; ?>
                         </label>
                         <label class="form-control">
                             <div class="label">
                                 <span class="label-text text-black">Senha</span>
                             </div>
                             <input type="password" placeholder="password" class="input input-bordered w-full max-w-xs bg-white" name="password" />
+                            <?php if (isset($validacoes['password'])): ?>
+                                <div class="label text-xs text-error"><?= $validacoes['password'][0]; ?></div>
+                            <?php endif; ?>
                         </label>
 
                         <div class="card-actions justify-end">
