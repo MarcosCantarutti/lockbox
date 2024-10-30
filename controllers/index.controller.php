@@ -1,5 +1,1 @@
-<?php
-
-
-
-view('index');
+<h1>oi</h1>
