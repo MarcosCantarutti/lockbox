@@ -3,21 +3,18 @@
 use Core\Route;
 use App\Controller\IndexController;
 use App\Controller\LoginController;
+use App\Controller\DashboardController;
+use App\Controller\LogoutController;
+use App\Controller\RegisterController;
 
 (new Route())
     ->get('/', IndexController::class)
     ->get('/login', [LoginController::class, 'index'])
     ->post('/login', [LoginController::class, 'login'])
+
+    ->get('/dashboard', DashboardController::class)
+    ->get('/logout', LogoutController::class)
+
+    ->get('/registrar', [RegisterController::class, 'index'])
+    ->post('/registrar', [RegisterController::class, 'register'])
     ->run();
-
-
-// $controller = str_replace('/', '', parse_url($_SERVER['REQUEST_URI'])['path']);
-
-// if (!$controller) $controller = 'index';
-
-// if (!file_exists("../controllers/{$controller}.controller.php")) {
-//     abort(404);
-// }
-
-
-// require "../controllers/{$controller}.controller.php";

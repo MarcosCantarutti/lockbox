@@ -38,22 +38,20 @@ class Route
 
     public function run()
     {
-
-        $uri = '/' . str_replace('/', '', parse_url($_SERVER['REQUEST_URI'])['path']);
-
-
+        $uri = '/' . trim(parse_url($_SERVER['REQUEST_URI'])['path'], '/');
         $httpMethod = $_SERVER['REQUEST_METHOD'];
 
         if (!isset($this->routes[$httpMethod][$uri])) {
-            abort(404);
-        };
+            http_response_code(404);
+            echo "404 - Not Found";
+            exit;
+        }
 
         $routeInfo = $this->routes[$httpMethod][$uri];
+        $class = $routeInfo['class'];
+        $method = $routeInfo['method'];
 
-        $class =  $routeInfo['class'];
-        $method =  $routeInfo['method'];
-
-        $c = new $class;
-        $c->$method();
+        $controller = new $class();
+        $controller->$method();
     }
 }

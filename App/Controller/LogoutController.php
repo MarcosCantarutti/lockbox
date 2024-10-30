@@ -2,8 +2,7 @@
 
 namespace App\Controller;
 
-
-class IndexController
+class LogoutController
 {
     public function __invoke() {}
 }
