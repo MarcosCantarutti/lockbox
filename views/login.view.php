@@ -20,11 +20,12 @@
                 <?php
                 $validacoes = flash()->get('validacoes');
                 $mensagem = flash()->get('mensagem');
+                // dd($mensagem);
                 ?>
                 <div class="card">
                     <div class="card-body">
                         <div class="card-title">Faça o seu login</div>
-                        <?php if (isset($mensagem['mensagem'])): ?>
+                        <?php if ($mensagem): ?>
                             <div role="alert" class="alert alert-success">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +38,7 @@
                                         stroke-width="2"
                                         d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
-                                <span><?= $mensagem['mensagem']; ?></span>
+                                <span><?= $mensagem; ?></span>
                             </div>
 
                         <?php endif; ?>
