@@ -57,6 +57,11 @@ function auth()
     return  $_SESSION['auth'];
 }
 
+function redirect($uri)
+{
+    return header('location: ' . $uri);
+}
+
 function old($campo)
 {
     $post = $_POST;
