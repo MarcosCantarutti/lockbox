@@ -9,5 +9,10 @@ class DashboardController
         if (!auth()) {
             return redirect('/login');
         }
+
+
+        return view('/dashboard', [
+            'user' => auth(),
+        ]);
     }
 }
