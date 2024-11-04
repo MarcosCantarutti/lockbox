@@ -2,17 +2,25 @@
 
 namespace App\Controller\Notas;
 
+use App\Models\Nota;
+
 class IndexController
 {
     public function __invoke()
     {
-        if (!auth()) {
-            return redirect('/login');
-        }
 
+        $notas = Nota::all();
 
-        return view('/notas', [
-            'user' => auth(),
-        ]);
+        $id =  isset($_GET['id']) ?  $_GET['id'] : $notas[0]->id;
+
+        $filtro = array_filter($notas, fn($n) => $n->id == $id);
+        $notasSelecionada = array_pop($filtro);
+        return view(
+            'notas',
+            [
+                'notas' => $notas,
+                'notaSelecionada' => $notasSelecionada
+            ]
+        );
     }
 }
