@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Notas;
 
-class DashboardController
+class IndexController
 {
     public function __invoke()
     {
@@ -11,7 +11,7 @@ class DashboardController
         }
 
 
-        return view('/dashboard', [
+        return view('/notas', [
             'user' => auth(),
         ]);
     }
