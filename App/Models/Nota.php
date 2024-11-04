@@ -14,15 +14,18 @@ class Nota
     public $data_atualizacao;
 
 
-    public static function all()
+    public static function all($filter = null)
     {
         $database = new Database(config('database'));
         $notas = $database->query(
-            query: "SELECT * FROM NOTAS WHERE usuario_id = :usuario_id ",
+            query: "SELECT * FROM NOTAS WHERE usuario_id = :usuario_id " . (
+                $filter ? ' and titulo like :filter ' : null
+            ),
             class: self::class,
-            params: [
-                'usuario_id' => auth()->id,
-            ]
+            params: array_merge(
+                ['usuario_id' => auth()->id],
+                $filter ? ['filter' => "%$filter%"] : []
+            )
         )->fetchAll();
 
         return  $notas;
