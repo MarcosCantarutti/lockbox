@@ -15,7 +15,7 @@ class IndexController
         }
 
         return view(
-            'notas',
+            'notas/index',
             [
                 'notas' => $notas,
                 'notaSelecionada' => $notasSelecionada
