@@ -30,4 +30,30 @@ class Nota
 
         return  $notas;
     }
+
+    public static function delete($id)
+    {
+        $database = new Database(config('database'));
+
+        $database->query(
+            query: "DELETE FROM NOTAS where id = :id",
+            params: [
+                'id' => $id
+            ]
+        );
+    }
+
+    public static function update($titulo, $nota, $id)
+    {
+        $database = new Database(config('database'));
+
+        $database->query(
+            query: "UPDATE NOTAS SET titulo = :titulo, nota = :nota where id = :id",
+            params: [
+                'titulo' => $titulo,
+                'nota' => $nota,
+                'id' => $id
+            ]
+        );
+    }
 }
