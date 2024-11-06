@@ -20,7 +20,7 @@ class RegisterController
             'name' => ['required'],
             'email' => ['required', 'email', 'confirmed', 'unique:usuarios'],
             'password' => ['required', 'min:8', 'max:30', 'strong']
-        ], $_POST);
+        ], request()->all());
 
 
         if ($validacao->naoPassou()) {
@@ -31,9 +31,9 @@ class RegisterController
         $database->query(
             query: "INSERT INTO USUARIOS (nome, email, password) values (:nome, :email, :password) ",
             params: [
-                'nome' => $_POST['name'],
-                'email' => $_POST['email'],
-                'password' => password_hash($_POST['password'], PASSWORD_DEFAULT),
+                'nome' => request()->post('name'),
+                'email' => request()->post('email'),
+                'password' => password_hash(request()->post('password'), PASSWORD_DEFAULT),
             ]
         );
 

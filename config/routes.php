@@ -24,7 +24,8 @@ use App\Controller\Notas;
     ->put('/nota', Notas\AtualizarController::class, AuthMiddleware::class)
     ->delete('/nota', Notas\DeleteController::class, AuthMiddleware::class)
 
-    ->get('/mostrar', [Notas\VisualizarController::class, 'mostrar'], AuthMiddleware::class)
+    ->get('/confirmar', [Notas\VisualizarController::class, 'confirmar'], AuthMiddleware::class)
+    ->post('/mostrar', [Notas\VisualizarController::class, 'mostrar'], AuthMiddleware::class)
     ->get('/esconder', [Notas\VisualizarController::class, 'esconder'], AuthMiddleware::class)
 
     ->run();

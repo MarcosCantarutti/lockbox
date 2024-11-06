@@ -17,8 +17,8 @@ class LoginController
     {
 
 
-        $email    = $_POST['email'];
-        $password = $_POST['password'];
+        $email    = request()->post('email');
+        $password = request()->post('password');
 
         $validacao = Validacao::validar([
             'email' => ['required', 'email'],
