@@ -10,11 +10,17 @@ class AtualizarController
     public function __invoke()
     {
 
-        $validacao = Validacao::validar([
-            'titulo' => ['required', 'min:3', 'max:255'],
-            'nota' => ['required'],
-            'id' => ['required']
-        ], request()->all());
+        // dd(request()->all());
+        $possoAtualizarANota = session()->get('mostrar');
+
+
+        $validacao = Validacao::validar(
+            array_merge([
+                'titulo' => ['required', 'min:3', 'max:255'],
+                'id' => ['required']
+            ], $possoAtualizarANota ? ['nota' => ['required']] : []),
+            request()->all()
+        );
 
         if ($validacao->naoPassou()) {
             // se deu errado
