@@ -91,10 +91,10 @@ function session()
     return new Core\Session();
 }
 
-function secured_encrypt($data)
+function encrypt($data)
 {
     $first_key = base64_decode(config('security.first_key'));
-    $second_key = base64_decode(config('security.Second_key'));
+    $second_key = base64_decode(config('security.second_key'));
 
     $method = "aes-256-cbc";
     $iv_length = openssl_cipher_iv_length($method);
@@ -108,10 +108,10 @@ function secured_encrypt($data)
 }
 
 
-function secured_decrypt($input)
+function decrypt($input)
 {
     $first_key = base64_decode(config('security.first_key'));
-    $second_key = base64_decode(config('security.Second_key'));
+    $second_key = base64_decode(config('security.second_key'));
 
     $mix = base64_decode($input);
 

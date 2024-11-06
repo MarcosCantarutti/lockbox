@@ -17,7 +17,7 @@ class Nota
     public function nota()
     {
         if (session()->get('mostrar')) {
-            return $this->nota;
+            return decrypt($this->nota);
         }
 
         return '***********';
@@ -38,6 +38,22 @@ class Nota
         )->fetchAll();
 
         return  $notas;
+    }
+
+    public static function create($usuario_id, $titulo, $nota)
+    {
+        $database = new Database(config('database'));
+
+        $database->query(
+            query: "INSERT INTO NOTAS (usuario_id, titulo, nota, data_criacao,data_atualizacao) values (:usuario_id, :titulo, :nota, :data_criacao,:data_atualizacao) ",
+            params: [
+                'usuario_id' => $usuario_id,
+                'titulo' => $titulo,
+                'nota' => encrypt($nota),
+                'data_criacao' => date('Y-m-d H:i:s'),
+                'data_atualizacao' => date('Y-m-d H:i:s'),
+            ]
+        );
     }
 
     public static function delete($id)
@@ -67,7 +83,7 @@ class Nota
             params: array_merge([
                 'titulo' => $titulo,
                 'id' => $id
-            ], $nota ? ['nota' => $nota] : [])
+            ], $nota ? ['nota' => encrypt($nota)] : [])
         );
     }
 }
